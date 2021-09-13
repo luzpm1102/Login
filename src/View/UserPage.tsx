@@ -13,18 +13,19 @@ import {TOButton} from '../Components/TOButton';
 import {UserInfo} from '../Components/UserInfo';
 import {AuthContext} from '../context/AuthContext';
 import {useGallery} from '../hooks/useGallery';
+import {useFs} from '../hooks/useFs';
 
 export const UserPage = () => {
   const [imagen, setImagen] = useState('');
-  const {logOut, token, user} = useContext(AuthContext);
-  const {changeUserImage, changeUserBackgroundImg, pathPP} = useGallery();
+  const {logOut, user} = useContext(AuthContext);
+  const {changeUserImage, changeUserBackgroundImg} = useGallery(setImagen);
+  const {readLastImage, readAllFiles} = useFs();
+  const firstFile = '/data/user/0/com.login/files/ReactNativeDevBundle.js';
   useEffect(() => {
-    setImagen('../Assets/user.png');
+    readLastImage().then(setImagen).catch(console.log);
+    // console.log(imagen);
   }, []);
 
-  // useEffect(() => {
-  //   setTimeout(logOut, 50000);
-  // }, [token]);
   return (
     <SafeAreaView>
       <View
@@ -64,10 +65,23 @@ export const UserPage = () => {
             </Text>
           </TouchableOpacity>
         </View>
-        {pathPP && (
+
+        {imagen !== '' || imagen !== `file://${firstFile}` ? (
           <View style={styles.userContainer}>
             <View style={styles.imageContainer}>
-              <Image source={{uri: pathPP}} style={styles.image} />
+              <Image source={{uri: `file://${imagen}`}} style={styles.image} />
+            </View>
+            <View>
+              <Text style={styles.text}>Nombre: {user?.nombre}</Text>
+            </View>
+          </View>
+        ) : (
+          <View style={styles.userContainer}>
+            <View style={styles.imageContainer}>
+              <Image
+                source={require('../Assets/user.png')}
+                style={styles.image}
+              />
             </View>
             <View>
               <Text style={styles.text}>Nombre: {user?.nombre}</Text>
@@ -127,5 +141,9 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     fontSize: 25,
+  },
+  userText: {
+    alignItems: 'center',
+    fontSize: 18,
   },
 });

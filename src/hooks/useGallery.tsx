@@ -1,82 +1,72 @@
-import {useState} from 'react';
+import React from 'react';
 import {Alert} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import * as RNFS from 'react-native-fs';
+import {useFs} from './useFs';
 
 interface Props {
   type: 'Profile' | 'Background';
 }
-export const useGallery = () => {
-  const [tempUri, setTempUri] = useState<string>(' ');
-  const [tempUriBg, setTempUriBg] = useState<string>(' ');
-
-  var pathPP = RNFS.DocumentDirectoryPath + 'pp/.jpg';
-  var pathBg = RNFS.DocumentDirectoryPath + '/bg.jpg';
+export const useGallery = (updateImage: Function) => {
+  const {saveImage, deleteAll, saveImageBg} = useFs();
   const takePhoto = ({type}: Props) => {
     launchCamera({mediaType: 'photo', quality: 0.5}, resp => {
       if (resp.didCancel) return;
       if (!resp.assets?.[0].uri) return;
-      console.log(resp.assets![0].uri);
-      var imgFileName = resp.assets![0].fileName;
 
       if (type === 'Profile') {
-        setTempUri(resp.assets?.[0].uri);
-        pathPP = 'file://' + RNFS.DocumentDirectoryPath + '/pp.jpg';
-
-        RNFS.writeFile(pathPP, tempUri, 'base64')
-          .then(success => {
-            console.log('FILE WROTE!');
-            console.log({pathPP});
-            console.log({tempUri});
+        deleteAll();
+        saveImage(resp.assets?.[0].uri)
+          .then(path => {
+            updateImage(path);
+            Alert.alert(
+              'Cambio Exitoso',
+              'Su imagen de perfil ha sido guardada correctamente',
+            );
           })
-          .catch(err => {
-            console.log({pathPP});
-            console.log(err.message);
-          });
+          .catch(console.log);
+        console.log('saved');
       } else {
-        setTempUriBg(resp.assets?.[0].uri);
-        RNFS.writeFile(pathBg, tempUriBg, 'utf8')
-          .then(success => {
-            console.log('FILE WRITTEN!');
-            console.log(pathBg);
+        saveImageBg(resp.assets?.[0].uri)
+          .then(() => {
+            Alert.alert(
+              'Cambio Exitoso',
+              'Su imagen de fondo ha sido guardada correctamente',
+            );
           })
-          .catch(err => {
-            console.log(err.message);
-          });
+          .catch(console.log);
+        deleteAll();
       }
-
-      console.log(imgFileName);
     });
   };
   const openLibrary = ({type}: Props) => {
     launchImageLibrary({mediaType: 'photo', quality: 0.5}, resp => {
       if (resp.didCancel) return;
       if (!resp.assets?.[0].uri) return;
-      console.log(resp.assets![0].uri);
-      var imgFileName = resp.assets![0].fileName;
 
       if (type === 'Profile') {
-        setTempUri(resp.assets?.[0].uri);
-        pathPP = RNFS.DocumentDirectoryPath + imgFileName;
-        RNFS.copyFile(tempUri, pathPP)
-          .then(success => {
-            console.log('FILE cpied!');
+        deleteAll();
+        saveImage(resp.assets?.[0].uri)
+          .then(path => {
+            updateImage(path);
+            Alert.alert(
+              'Cambio Exitoso',
+              'Su imagen de perfil ha sido guardada correctamente',
+            );
           })
-          .catch(err => {
-            console.log(err.message);
-          });
-      } else {
-        setTempUriBg(resp.assets?.[0].uri);
-        RNFS.writeFile(pathBg, tempUriBg, 'utf8')
-          .then(success => {
-            console.log('FILE WRITTEN!');
-          })
-          .catch(err => {
-            console.log(err.message);
-          });
-      }
+          .catch(console.log);
 
-      console.log(imgFileName);
+        console.log('saved');
+      } else {
+        saveImageBg(resp.assets?.[0].uri)
+          .then(() => {
+            Alert.alert(
+              'Cambio Exitoso',
+              'Su imagen de fondo ha sido guardada correctamente',
+            );
+          })
+          .catch(console.log);
+        deleteAll();
+      }
     });
   };
 
@@ -137,6 +127,5 @@ export const useGallery = () => {
   return {
     changeUserImage,
     changeUserBackgroundImg,
-    pathPP,
   };
 };
