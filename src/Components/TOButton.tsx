@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     left: 10,
     height: 50,
     width: 270,
-    backgroundColor: 'black',
+    backgroundColor: '#0071e3',
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000',
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.27,
     shadowRadius: 4.65,
     elevation: 6,
-    borderRadius: 15,
+    borderRadius: 25,
   },
   text: {
     color: 'white',

@@ -52,10 +52,10 @@ export const UserPage = () => {
             activeOpacity={0.5}
             onPress={logOut}
             style={{
-              backgroundColor: 'black',
+              backgroundColor: '#ff0a2b',
               height: 40,
               width: 90,
-              borderRadius: 15,
+              borderRadius: 10,
               justifyContent: 'center',
             }}>
             <Text
@@ -99,7 +99,7 @@ export const UserPage = () => {
             style={{alignItems: 'center', top: 10}}
           />
           <TOButton
-            title="Establecer Imagen de fondo"
+            title="Cambiar Imagen de fondo"
             onPress={changeUserBackgroundImg}
             style={{
               alignItems: 'center',
@@ -107,14 +107,7 @@ export const UserPage = () => {
             }}
           />
         </View>
-        <View
-          style={{
-            top: 35,
-            borderBottomWidth: 1,
-            marginVertical: 8,
-            borderBottomColor: 'black',
-          }}
-        />
+       
       </View>
     </SafeAreaView>
   );
