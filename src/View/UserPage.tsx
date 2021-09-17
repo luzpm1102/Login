@@ -10,21 +10,24 @@ import {
 } from 'react-native';
 
 import {TOButton} from '../Components/TOButton';
-import {UserInfo} from '../Components/UserInfo';
 import {AuthContext} from '../context/AuthContext';
 import {useGallery} from '../hooks/useGallery';
 import {useFs} from '../hooks/useFs';
+import { Permissions } from '../hooks/Permissions';
 
 export const UserPage = () => {
   const [imagen, setImagen] = useState('');
   const {logOut, user} = useContext(AuthContext);
   const {changeUserImage, changeUserBackgroundImg} = useGallery(setImagen);
-  const {readLastImage, readAllFiles} = useFs();
+  const {readLastImage} = useFs();
   const firstFile = '/data/user/0/com.login/files/ReactNativeDevBundle.js';
+  const {requestPermission}=  Permissions()
   useEffect(() => {
     readLastImage().then(setImagen).catch(console.log);
     // console.log(imagen);
+    requestPermission()
   }, []);
+ 
 
   return (
     <SafeAreaView>

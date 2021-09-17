@@ -76,7 +76,7 @@ export const AuthProvider = ({children}: any) => {
       });
 
       await AsyncStorage.setItem('token', data.token);
-    } catch (error) {
+    } catch (error: any) {
       dispatch({
         type: 'addError',
         payload: error.response.data.msg || 'Información incorrecta',
@@ -100,7 +100,7 @@ export const AuthProvider = ({children}: any) => {
       });
 
       await AsyncStorage.setItem('token', data.token);
-    } catch (error) {
+    } catch (error: any) {
       dispatch({
         type: 'addError',
         payload: error.response.data.errors[0].msg || 'Revise la información',
