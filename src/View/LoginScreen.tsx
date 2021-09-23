@@ -32,7 +32,7 @@ export const LoginScreen = ({navigation}: Props) => {
   useEffect(() => {
     if (errorMessage.length === 0) return;
 
-    Alert.alert('Login incorrecto', errorMessage, [
+    Alert.alert('Ingreso incorrecto', errorMessage, [
       {
         text: 'Ok',
         onPress: removeError,
@@ -47,7 +47,7 @@ export const LoginScreen = ({navigation}: Props) => {
 
   const onLogin = () => {
     if (!email.includes('@' && '.com')) {
-      return Alert.alert('Ingrese un email valido');
+      return Alert.alert('Ingrese un correo valido');
     } else {
       console.log({email, password});
       Keyboard.dismiss();
