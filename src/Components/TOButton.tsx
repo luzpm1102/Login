@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   button: {
-    // top: 10,
     left: 10,
     height: 50,
     width: 270,

@@ -27,7 +27,6 @@ export const LoginScreen = ({navigation}: Props) => {
 
   useEffect(() => {
     readLastImageBG().then(setImagen).catch(console.log);
-    // getColors(`file://${imagen}`);
   }, [imagen]);
   useEffect(() => {
     if (errorMessage.length === 0) return;
@@ -118,7 +117,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#242424',
     justifyContent: 'center',
-    // paddingHorizontal: 30,
   },
   title: {
     fontSize: 30,
@@ -138,7 +136,6 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     color: 'white',
     borderRadius: 15,
-    // padding: 10,
   },
   buttonContainer: {
     alignItems: 'center',

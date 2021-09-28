@@ -133,7 +133,6 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     color: 'white',
     borderRadius: 15,
-    // padding: 10,
   },
   buttonContainer: {
     alignItems: 'center',

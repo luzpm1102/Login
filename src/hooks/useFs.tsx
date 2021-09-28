@@ -36,32 +36,21 @@ export const useFs = () => {
       result.sort(
         (pic1, pic2) => pic1.mtime?.getTime()! - pic2.mtime?.getTime()!,
       );
-      // console.log('From ReadLastImage', result);
 
-      // console.log('GOT RESULT', result[result.length - 2]);
       return result[result.length - 2].path;
     });
   const readLastImageBG = () =>
     RNFS.readDir(`${storageBg}`).then(result => {
-      // console.log('GOT RESULT', result[result.length - 1]);
       return result[result.length - 1].path;
     });
   const readAllFiles = () =>
     RNFS.readDir(`${storage}`).then(result => {
-      for (let i = 0; i < result.length; i++) {
-        console.log('GOT RESULT from Read ALl FIles', result[i]);
-        // RNFS.unlink(result[i].path)
-        //   .then(result => {
-        //     console.log('eliminado');
-        //   })
-        //   .catch(console.log);
-      }
       return result;
     });
 
   const deleteAll = () =>
     RNFS.readDir(RNFS.DocumentDirectoryPath).then(result => {
-      console.log('GOT RESULT', result);
+      // console.log('GOT RESULT', result);
       var len = result.length - 2;
 
       for (let i = 0; i < len; i++) {

@@ -30,13 +30,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imageContainer: {
-    // borderRadius: 100,
     height: 200,
     width: 400,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'red',
-    // flexDirection: 'column',
   },
   image: {},
   text: {

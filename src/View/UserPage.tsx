@@ -13,7 +13,7 @@ import {TOButton} from '../Components/TOButton';
 import {AuthContext} from '../context/AuthContext';
 import {useGallery} from '../hooks/useGallery';
 import {useFs} from '../hooks/useFs';
-import { Permissions } from '../hooks/Permissions';
+import {Permissions} from '../hooks/Permissions';
 
 export const UserPage = () => {
   const [imagen, setImagen] = useState('');
@@ -21,19 +21,16 @@ export const UserPage = () => {
   const {changeUserImage, changeUserBackgroundImg} = useGallery(setImagen);
   const {readLastImage} = useFs();
   const firstFile = '/data/user/0/com.login/files/ReactNativeDevBundle.js';
-  const {requestPermission}=  Permissions()
+  const {requestPermission} = Permissions();
   useEffect(() => {
     readLastImage().then(setImagen).catch(console.log);
-    // console.log(imagen);
-    requestPermission()
+
+    requestPermission();
   }, []);
- 
 
   return (
     <SafeAreaView>
-      <View
-      //   style={styles.container}
-      >
+      <View>
         <View
           style={{
             flexDirection: 'row',
@@ -107,7 +104,6 @@ export const UserPage = () => {
             }}
           />
         </View>
-       
       </View>
     </SafeAreaView>
   );
@@ -126,7 +122,6 @@ const styles = StyleSheet.create({
     width: 250,
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: 'red',
     flexDirection: 'column',
   },
   image: {
