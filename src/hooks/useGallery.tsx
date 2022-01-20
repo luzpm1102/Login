@@ -70,7 +70,7 @@ export const useGallery = (updateImage: Function) => {
     });
   };
 
-  const changeUserImage = () => {
+  const OpenCameraAlert = ({type}: Props) => {
     Alert.alert(
       'Cambiar Imagen',
       '¿Desea abrir la camara o la galeria?',
@@ -82,12 +82,12 @@ export const useGallery = (updateImage: Function) => {
         },
         {
           text: 'Tomar foto',
-          onPress: () => takePhoto({type: 'Profile'}),
+          onPress: () => takePhoto({type: type}),
           style: 'default',
         },
         {
           text: 'Abrir galeria',
-          onPress: () => openLibrary({type: 'Profile'}),
+          onPress: () => openLibrary({type: type}),
           style: 'default',
         },
       ],
@@ -97,31 +97,12 @@ export const useGallery = (updateImage: Function) => {
     );
   };
 
+  const changeUserImage = () => {
+    OpenCameraAlert({type: 'Profile'});
+  };
+
   const changeUserBackgroundImg = () => {
-    Alert.alert(
-      'Cambiar Imagen',
-      '¿Desea abrir la camara o la galeria?',
-      [
-        {
-          text: 'Cancelar',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        {
-          text: 'Tomar foto',
-          onPress: () => takePhoto({type: 'Background'}),
-          style: 'default',
-        },
-        {
-          text: 'Abrir galeria',
-          onPress: () => openLibrary({type: 'Background'}),
-          style: 'default',
-        },
-      ],
-      {
-        cancelable: true,
-      },
-    );
+    OpenCameraAlert({type: 'Background'});
   };
 
   return {
